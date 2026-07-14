@@ -138,4 +138,16 @@ def ban_user(message):
 # ===== ЗАПУСК =====
 print("🚀 Бот Guardian 61 anon запущен!")
 print(f"👥 Админы: {ADMIN_IDS}")
+bot.infinity_polling()import telebot
+# ... (ваши остальные импорты)
+
+# Ваша конфигурация, база данных и обработчики команд
+
+# --- ДОБАВЬТЕ ЭТУ СТРОЧКУ ПЕРЕД ЗАПУСКОМ ---
+# Удаляем активный вебхук, чтобы использовать Long Polling
+bot.remove_webhook()
+# -------------------------------------------
+
+print("🚀 Бот Guardian 61 anon запущен!")
+# ... (остальной код)
 bot.infinity_polling()
