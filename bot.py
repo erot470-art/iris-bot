@@ -794,7 +794,33 @@ if __name__ == "__main__":
         logger.warning(f"⚠️ Ошибка удаления вебхука: {e}")
     
     time.sleep(1)
-    
+        # Регистрируем команды в Telegram
+    try:
+        commands = [
+            telebot.types.BotCommand("start", "Главное меню и регистрация"),
+            telebot.types.BotCommand("help", "Список всех команд"),
+            telebot.types.BotCommand("баланс", "Мой баланс ирисок"),
+            telebot.types.BotCommand("топ", "Топ пользователей"),
+            telebot.types.BotCommand("брак", "Предложить брак @user"),
+            telebot.types.BotCommand("развод", "Расторгнуть брак"),
+            telebot.types.BotCommand("мой_брак", "Информация о браке"),
+            telebot.types.BotCommand("браки", "Список браков в чате"),
+            telebot.types.BotCommand("обнять", "Обнять @user"),
+            telebot.types.BotCommand("поцеловать", "Поцеловать @user"),
+            telebot.types.BotCommand("ударить", "Ударить @user"),
+            telebot.types.BotCommand("дать_пять", "Дать пять @user"),
+            telebot.types.BotCommand("пожать_руку", "Пожать руку @user"),
+            telebot.types.BotCommand("мут", "Заглушить @user [время] (админ)"),
+            telebot.types.BotCommand("бан", "Забанить @user [время] (админ)"),
+            telebot.types.BotCommand("варн", "Выдать варн @user (админ)"),
+            telebot.types.BotCommand("банлист", "Список банов (админ)"),
+            telebot.types.BotCommand("дать", "Выдать ириски @user [сумма] (админ)"),
+            telebot.types.BotCommand("ping", "Проверка работы бота"),
+        ]
+        bot.set_my_commands(commands)
+        logger.info("✅ Команды зарегистрированы в Telegram")
+    except Exception as e:
+        logger.warning(f"⚠️ Не удалось зарегистрировать команды: {e}")
     # Запускаем Flask
     flask_thread = threading.Thread(target=run_flask)
     flask_thread.daemon = True
