@@ -1,9 +1,11 @@
 import time
 from telebot.types import Message
-from utils.db import get_db
-from utils.middleware import is_admin, log_action
+from bot.services.db import get_db
+from bot.middleware.auth import is_admin, log_action
 
 def register_admin_handlers(bot):
+    """Регистрирует все админ-команды"""
+    
     @bot.message_handler(commands=["мут"])
     def mute_user(message: Message):
         if not is_admin(message.from_user.id):
@@ -15,7 +17,6 @@ def register_admin_handlers(bot):
             bot.reply_to(message, "❌ Используйте: /мут @username 60м")
             return
 
-        # Простой парсинг — можно расширить
         target = parts[1].replace("@", "")
         duration_str = parts[2]
         duration_seconds = int(duration_str.replace("м", "")) * 60
@@ -41,5 +42,7 @@ def register_admin_handlers(bot):
             return
 
         target = parts[1].replace("@", "")
-        # Здесь можно добавить логику бана (кик + чёрный список)
+        with get_db() as conn:
+            log_action(conn, message.from_user.id, "ban", target)
+        
         bot.reply_to(message, f"🚫 Пользователь @{target} забанен.")
