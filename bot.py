@@ -151,3 +151,4 @@ bot.remove_webhook()
 print("🚀 Бот Guardian 61 anon запущен!")
 # ... (остальной код)
 bot.infinity_polling()
+bot.remove_webhook(
